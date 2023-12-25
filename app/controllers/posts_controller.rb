@@ -1,23 +1,24 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
   def index
-    #@posts = current_user.posts.order("RANDOM()").first(1)
-    @posts = Post.all
+    @post = Post.all
   end
 
   # GET /posts/1 or /posts/1.json
   def show
     @post = Post.find(params[:id])
-
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: "Post not found"
   end
 
   # GET /posts/new
-  def new
-    @post = Post.new
-  end
+    def new
+        @post = Post.new
+    end
+
 
   # GET /posts/1/edit
   def edit
