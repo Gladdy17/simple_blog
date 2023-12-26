@@ -8,5 +8,12 @@
       <%= link_to "Edit this post", edit_post_path(@post) %> |
       <%= button_to "Destroy this post", @post, method: :delete %>
       <%= link_to "Back to posts", posts_path %>
+      <p>
+        <% if @post.user %>
+           Author: <%= @post.user.email %>
+        <% else %>
+           Author not specified
+        <% end %>
+</p>
     </div>
 </div>
